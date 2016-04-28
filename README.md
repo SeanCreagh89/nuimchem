@@ -6,7 +6,7 @@ The application was tested and debugged using Google's App Engine for Python. Th
 
 The application consists of two web pages; a login screen which allowed users' to login and register, and a navigation screen which allowed users' to "navigate" through the site by filling a defined portion of the screen with the appropriate template.
 
-The Google App Engine and Python (at least 2.7) are required to run this web application.
+The Google App Engine and Python are required to run this web application.
 Google App Engine: https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python
 Python 2.7: https://www.python.org/downloads/
 
