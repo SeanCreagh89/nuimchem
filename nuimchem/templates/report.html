@@ -1,0 +1,55 @@
+{% extends "navigation.html" %}
+{% set active_page = "report" %}
+
+{% block title %}
+Report.
+{% endblock %}
+
+{% block content %}
+<div id="container">
+	<form method="post">
+		<div id="search-container">
+			<div class="search-wrapper" id="background">
+				<div class="search-inner" id="more-width">
+					<input class="form-elements" type="text" name="search" value="{{search}}">
+				</div>
+
+				<div class="search-inner">
+					<select class="form-elements" name="dropdown">
+						{% set filter = [
+						('filter'),
+						('All'),
+						('Name'),
+						('Owner'),
+						('Group'),
+						('Classification'),
+						('Location'),
+						('Sub Location'),
+						('Waste')
+						] -%}
+
+						{% for value in filter %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="search-inner">
+					<button class="form-elements" id="search-button" type="submit" name="button" value="1"> Search. </button>
+				</div>
+			</div>
+
+			<div class="search-wrapper">
+				<div class="search-inner" id="more-width">
+					<p class="big-error"> {{search_error}} </p>
+				</div>
+
+				<div class="search-inner">
+					<p class="big-error"> {{filter_error}} </p>
+				</div>
+			</div>
+		</div>
+	</form>
+	{% block results %}{% endblock %}
+</div>
+{% endblock %}

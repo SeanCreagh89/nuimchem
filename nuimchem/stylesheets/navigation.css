@@ -1,0 +1,40 @@
+/***** NAVIGATION STYLES *****/
+a.links
+{
+    color:#ffffff;
+    margin-right:20px;
+    text-decoration:none;
+}
+
+#links-container
+{
+	float:left;
+	margin-top:34px;
+	margin-left:20px;
+}
+
+#log-acc
+{
+	display:none;
+	background-color:#ffffff;
+	width:98px;
+	height:54px;
+	border:1px solid #33cc00;
+}
+
+#menu-items
+{
+	float:left;
+	width:98px;
+	height:26px;
+	text-align:center;
+	text-decoration:none;
+}
+
+
+
+/***** MAIN CONTENT *****/
+#content-container
+{
+    margin:50px 50px 50px 50px;
+}

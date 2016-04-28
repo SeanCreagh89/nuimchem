@@ -1,0 +1,154 @@
+ol
+{
+	float:left;
+	width:300px;
+	margin-top:10px;
+}
+
+li
+{
+	color:#808080;
+}
+
+button.menu-btn
+{
+	color:#ffffff;
+	background:#33cc00;
+	height:20px;
+	width:100px;
+	margin-right:75px;
+}
+
+div.input-wrapper
+{
+	float:left;
+	width:300px;
+	margin:5px 50px 5px 50px;
+}
+
+div.menu-wrapper
+{
+	float:left;
+	width:33%;
+}
+
+h1.menu-title
+{
+	color:#808080;
+	font-size:14px;
+}
+
+img.menu-symbol
+{
+	width:30px;
+	height:30px;
+}
+
+input.remaining
+{
+	color:#ff0000;
+	background-color:#101010;
+	font-size:12px;
+	width:25px;
+	margin-left:10px;
+}
+
+textarea.text-area
+{
+	width:300px;
+	height:50px;
+	max-width:300px;
+	max-height:50px;
+}
+
+.label
+{
+	color:#808080;
+	font-size:12px;
+	float:left;
+}
+
+.menu
+{
+	background-color:#101010;
+	display:none;
+	float:left;
+	width:1247px;
+}
+
+.menu-field
+{
+	width:300px;
+}
+
+.menu-field-alt
+{
+	width:100%;
+}
+
+#amount
+{
+	float:left;
+	width:38%;
+}
+
+#btn-container
+{
+	float:left;
+	width:1247px;
+}
+
+#btn-margin
+{
+	margin-right:5px;
+}
+
+#btn-wrapper
+{
+	float:right;
+	margin-bottom:5px;
+}
+
+#hidden
+{
+	display:none;
+}
+
+#int-amount
+{
+	float:left;
+	width:100%;
+	margin-bottom:5px;
+}
+
+#measure
+{
+	float:right;
+	width:60%;
+}
+
+#menu-links
+{
+	color:#33cc00;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+#menu-symbol-container
+{
+	float:left;
+	width:33px;
+	text-align:center;
+}
+
+#remaining-text
+{
+	float:right;
+}
+
+#symbol-wrapper
+{
+	float:left;
+	width:300px;
+}

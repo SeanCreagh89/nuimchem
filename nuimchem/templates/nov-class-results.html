@@ -1,0 +1,1296 @@
+{% extends "search.html" %}
+
+{% block results %}
+<div id="result-container">
+	<div class="header" id="xlarge"> ID: </div>
+	<div class="header" id="xlarge"> Name: </div>
+	<div class="header" id="xlarge"> Owner: </div>
+	<div class="header" id="xlarge"> Classification: </div>
+	<div class="header" id="xlarge"> Location: </div>
+	<div class="header" id="xlarge"> Sub Location: </div>
+
+	{% for q in query1 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification1}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+
+	{% for q in query2 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification2}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+
+	{% for q in query3 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification3}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+
+	{% for q in query4 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification4}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+
+	{% for q in query5 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification5}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+
+	{% for q in query6 %}
+	<a href="#" onclick="dropdownmenu('{{q.ID}}')">
+		<div class="details" id="xlarge"> {{q.ID}} </div>
+		<div class="details" id="xlarge"> {{q.name}} </div>
+		<div class="details" id="xlarge"> {{q.owner}} </div>
+		<div class="details" id="xlarge"> {{q.classification6}} </div>
+		<div class="details" id="xlarge"> {{q.location}} </div>
+		<div class="details" id="xlarge"> {{q.sublocation}} </div>
+	</a>
+
+	<div class="menu" id="{{q.ID}}">
+		<form method="post">
+			<input id="hidden" type="text" name="id" value="{{q.ID}}">
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Identity Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Name: </label>
+					<input class="menu-field" type="text" name="name" value="{{q.name}}">
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Owner: {{q.owner}} </label>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Group: {{q.group}} </label>
+					<select class="menu-field" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<div id="int-amount">
+						<label class="label"> Initial Quantity: {{q.int_quant}} </label>
+					</div>
+
+					<div id="amount">
+						<label class="label"> Current Quantity: </label>
+						<input class="menu-field-alt" type="text" name="cur_quant" value="{{q.cur_quant}}">
+					</div>
+
+					<div id="measure">
+						<label class="label"> Measure: {{q.measure}} </label>
+						<select id="menu-field-alt" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Location Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Main Location: {{q.location}} </label>
+					<select class="menu-field" name="mainloc" id='{{q.ID}} mainloc' onchange="dropdownlist(this.id, '{{q.ID}} subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Sub Location: {{q.sublocation}} </label>
+					<select class="menu-field" name="subloc" id='{{q.ID}} subloc'>
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+
+			<div class="menu-wrapper">
+				<div class="input-wrapper">
+					<h1 class="menu-title"> Safety Details. </h1>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Classification: </label>
+					<ol>
+						<li> {{q.classification1}} </li>
+
+						{% if q.classification2 != "Null" %}
+						<li> {{q.classification2}} </li>
+						{% endif %}
+
+						{% if q.classification3 != "Null" %}
+						<li> {{q.classification3}} </li>
+						{% endif %}
+
+						{% if q.classification4 != "Null" %}
+						<li> {{q.classification4}} </li>
+						{% endif %}
+
+						{% if q.classification5 != "Null" %}
+						<li> {{q.classification5}} </li>
+						{% endif %}
+
+						{% if q.classification6 != "Null" %}
+						<li> {{q.classification6}} </li>
+						{% endif %}
+					</ol>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Symbol: </label>
+					<div id="symbol-wrapper">
+						{% set image = [
+						('image1', '/images/img1.png'),
+						('image2', '/images/img2.png'),
+						('image3', '/images/img3.png'),
+						('image4', '/images/img4.png'),
+						('image5', '/images/img5.png'),
+						('image6', '/images/img6.png'),
+						('image7', '/images/img7.png'),
+						('image8', '/images/img8.png'),
+						('image9', '/images/img9.png')
+						] -%}
+
+						{% for id, value in image %}
+						<div id="menu-symbol-container">
+							<input type="checkbox" name="{{id}}" value="{{value}}" {% if value in q.symbol %} checked="true" {% endif %}>
+							<img src="{{value}}" class="menu-symbol" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="input-wrapper">
+					<label class="label"> Description: </label>
+
+					<textarea class="text-area" onKeyUp="counter(this, '{{q.ID}} {{q.name}}', 500)" type="text" name="description" rows="5" cols=""> {{q.description}} </textarea>
+
+					<p class="label" id="remaining-text"> Characters Left:
+						<input class="remaining" readonly="readonly" type="text" id='{{q.ID}} {{q.name}}' name="countdown" size="3" maxLength="3" value="500"/>
+					</p>
+				</div>
+			</div>
+
+			<div id="btn-container">
+				<div id="btn-wrapper">
+					<button class="menu-btn" id="btn-margin" type="submit" name="button" value="2"> Delete. </button>
+					<button class="menu-btn" type="submit" name="button" value="12"> Update. </button>
+				</div>
+			</div>
+		</form>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

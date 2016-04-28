@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Login.</title>
+	<link type="text/css" rel="stylesheet" href="/stylesheets/universal.css" />
+ 	<link type="text/css" rel="stylesheet" href="/stylesheets/login.css" />
+</head>
+
+<body>
+	<div id="black-bar">
+		<div id="left-container">
+			<div class="wrapper">
+				<img src="/images/logo.png" alt="NUIM Logo.">
+			</div>
+
+			<div class="wrapper">
+				<h1 id="main-title"> NUIM Chemical Database. </h1>
+			</div>
+		</div>
+
+		<div id="right-container">
+			<form method="post">
+				<div class="wrapper">
+					<label class="margin-top"> Username or Email: </label>
+					<input class="margin-top" type="text/email" name="login_user" value="{{login_user}}">
+					<span class="error"> {{login_user_error}} </span>
+				</div>
+
+				<div class="wrapper">
+					<label class="margin-top"> Password: </label>
+					<input class="margin-top" type="password" name="login_password" value="">
+					<span class="error"> {{login_password_error}} </span>
+				</div>
+
+				<div class="wrapper">
+					<button id="small-button" type="submit" name="button" value="1"> Login. </button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="register-container">
+		<div id="image-holder">
+			<img src="/images/main-image.png" alt="Main Image.">
+		</div>
+
+		<div id="form-holder">
+			<form method="post">
+				<div class="form-wrapper" id="top-margin">
+					<label class="subtitle"> Username: </label>
+					<span class="big-error"> {{register_username_error}} </span>
+					<input class="small-field" type="text" name="register_username" value="{{register_username}}">
+				</div>
+
+				<div class="form-wrapper">
+					<label class="subtitle"> Email: </label>
+					<span class="big-error"> {{register_email_error}} </span>
+					<input class="small-field" type="text" name="register_email" value="{{register_email}}">
+				</div>
+
+				<div class="form-wrapper">
+					<label class="subtitle"> Password: </label>
+					<span class="big-error"> {{register_password_error}} </span>
+					<input class="small-field" type="password" name="register_password" value="">
+				</div>
+
+				<div class="form-wrapper">
+					<p class="success"> {{response}} </p>
+				</div>
+
+				<div class="form-wrapper" id="bottom-margin">
+					<button class="medium-button" type="submit" name="button" value="2"> Register. </button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

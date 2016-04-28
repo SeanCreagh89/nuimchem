@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <link type="text/css" rel="stylesheet" href="/stylesheets/universal.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/navigation.css" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/admin.css" />
+    {% block styles %}{% endblock %}
+
+    <script type="text/javascript" src="/scripts/form-scripts.js"></script>
+</head>
+
+<body>
+    <div id="black-bar">
+        <div id="left-container">
+            <div class="wrapper">
+                <img src="/images/logo.png" alt="NUIM Logo.">
+            </div>
+
+            <div class="wrapper">
+                <h1 id="main-title">NUIM Chemical Database - Admin Console.</h1>
+            </div>
+        </div>
+
+        <div id="right-container">
+            <div class="wrapper">
+                <form method="post">
+                    <button id="small-button" type="submit" name="button" value="66">Log Out.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-container">
+    	<div id="left">
+    		<form method="post">
+	    		<div class="layer">
+	    			<div class="main-wrapper">
+						<h1 class="title"> Create New Admin. </h1>
+					</div>
+
+					<div class="main-wrapper">
+						<label class="subtitle"> Username: </label>
+						<span class="big-error"> {{username_error}} </span>
+						<input class="field" type="text" name="username" value="{{username}}">
+					</div>
+
+					<div class="main-wrapper">
+						<label class="subtitle"> Email: </label>
+						<span class="big-error"> {{email_error}} </span>
+						<input class="field" type="text" name="email" value="{{email}}">
+					</div>
+
+					<div class="main-wrapper">
+						<label class="subtitle"> Password: </label>
+						<span class="big-error"> {{password_error}} </span>
+						<input class="field" type="password" name="password" value="{{password}}">
+					</div>
+
+					<div class="main-wrapper">
+						<p class="success"> {{success}} </p>
+					</div>
+
+					<div class="main-wrapper" id="no-margin">
+						<button class="medium-button" id="admin-button" type="submit" name="button" value="1"> Submit. </button>
+					</div>
+	    		</div>
+
+	    		<div class="layer">
+	    			<div class="main-wrapper">
+						<h1 class="title"> Registration. </h1>
+					</div>
+
+					<div class="main-wrapper">
+						<label class="subtitle"> Enable or Disable Registration: </label>
+						<span class="hint"> In order to enable registration, please check the checkbox. To close registration, please uncheck the checkbox. </span>
+						{% for r in reg %}
+						<input name="registration" id="check-box" type="checkbox" {% if r.registration == True %} checked="true" {% endif %}>
+						{% endfor %}
+					</div>
+
+					<div class="main-wrapper" id="no-margin">
+						<button class="medium-button" id="admin-button" type="submit" name="button" value="2"> Submit. </button>
+					</div>
+	    		</div>
+    		</form>
+    	</div>
+
+    	<div id="right">
+    		<div class="query-container">
+    			<div class="query-holder">
+    				<div class="header" id="xxl"> Username: </div>
+	    			<div class="header" id="xxl"> Email: </div>
+	    			<div class="header" id="xxl"> Password: </div>
+
+	    			{% for u in users %}
+	    			<div class="overlay">
+	    				<form method="post">
+		    				<input class="hidden" name="user" type="text" value="{{u.username}}">
+			    			<div class="details" id="xxl"> {{u.username}} </div>
+			    			<div class="details" id="xxl"> {{u.email}} </div>
+			    			<div class="details" id="xxl"> {{u.password}} </div>
+			    			<div class="button-position">
+			    				<button class="delete" name="button" type="submit" value="10"> X </button>
+			    			</div>
+			    		</form>
+		    		</div>
+	    			{% endfor %}
+    			</div>
+    		</div>
+
+    		<!--cas-->
+    		<div class="query-container">
+    			<div class="query-holder">
+    				<div class="header" id="xxl"> ID: </div>
+	    			<div class="header" id="xxl"> Name: </div>
+	    			<div class="header" id="xxl"> Owner: </div>
+
+	    			{% for c in chemicals %}
+	    			<div class="overlay">
+	    				<form method="post">
+		    				<input class="hidden" name="id" type="text" value="{{c.ID}}">
+			    			<div class="details" id="xxl"> {{c.ID}} </div>
+			    			<div class="details" id="xxl"> {{c.name}} </div>
+			    			<div class="details" id="xxl"> {{c.owner}} </div>
+			    			<div class="button-position">
+			    				<button class="delete" name="button" type="submit" value="11"> X </button>
+			    			</div>
+			    		</form>
+		    		</div>
+	    			{% endfor %}
+    			</div>
+    		</div>
+
+    		<!--novel-->
+    		<div class="query-container">
+    			<div class="query-holder">
+    				<div class="header" id="xxl"> ID: </div>
+	    			<div class="header" id="xxl"> Name: </div>
+	    			<div class="header" id="xxl"> Owner: </div>
+
+	    			{% for n in novel %}
+	    			<div class="overlay">
+	    				<form method="post">
+		    				<input class="hidden" name="id" type="text" value="{{n.ID}}">
+			    			<div class="details" id="xxl"> {{n.ID}} </div>
+			    			<div class="details" id="xxl"> {{n.name}} </div>
+			    			<div class="details" id="xxl"> {{n.owner}} </div>
+			    			<div class="button-position">
+			    				<button class="delete" name="button" type="submit" value="11"> X </button>
+			    			</div>
+			    		</form>
+		    		</div>
+	    			{% endfor %}
+    			</div>
+    		</div>
+
+    		<!--waste-->
+    		<div class="query-container">
+    			<div class="query-holder">
+    				<div class="header" id="xxl"> ID: </div>
+	    			<div class="header" id="xxl"> Owner: </div>
+	    			<div class="header" id="xxl"> Type: </div>
+
+	    			{% for w in waste %}
+	    			<div class="overlay">
+	    				<form method="post">
+		    				<input class="hidden" name="id" type="text" value="{{w.ID}}">
+			    			<div class="details" id="xxl"> {{w.ID}} </div>
+			    			<div class="details" id="xxl"> {{w.owner}} </div>
+			    			<div class="details" id="xxl"> {{w.waste_type}} </div>
+			    			<div class="button-position">
+			    				<button class="delete" name="button" type="submit" value="11"> X </button>
+			    			</div>
+			    		</form>
+		    		</div>
+	    			{% endfor %}
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</body>
+</html>

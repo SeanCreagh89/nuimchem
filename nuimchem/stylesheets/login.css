@@ -1,0 +1,50 @@
+/***** LOGIN STYLES *****/
+span.error
+{
+	color:#ff0000;
+	display:block;
+	margin-top:5px;
+	text-align:right;
+}
+
+.margin-top
+{
+	margin-top:19px;
+}
+
+/***** REGISTER STYLES *****/
+div.form-wrapper
+{
+	margin-left:50px;
+	margin-right:50px;
+	margin-bottom:20px;
+}
+
+#bottom-margin
+{
+	margin-bottom:50px;
+}
+
+#form-holder
+{
+	background-color:#e8e8e8;
+	float:right;
+	width:500px;
+	margin:0 auto;
+}
+
+#image-holder
+{
+	float:left;
+	width:700px;
+}
+
+#register-container
+{
+	padding:50px;
+}
+
+#top-margin
+{
+	margin-top:50px;
+}

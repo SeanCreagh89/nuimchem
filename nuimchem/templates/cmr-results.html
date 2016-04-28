@@ -1,0 +1,25 @@
+{% extends "report.html" %}
+
+{% block results %}
+<div id="result-container">
+	<div class="header" id="large"> ID: </div>
+	<div class="header"> CAS No: </div>
+	<div class="header"> Name: </div>
+	<div class="header"> Classification: </div>
+	<div class="header"> Users: </div>
+	<div class="header"> Action: </div>
+	<div class="header"> Date: </div>
+
+	{% for q in query %}
+	<div class="details" id="large"> {{q.ID}} </div>
+	<div class="details"> {{q.cas_no}} </div>
+	<div class="details"> {{q.name}} </div>
+	<div class="details"> {{q.classification}} </div>
+	<div class="details"> {{q.users}} </div>
+	<div class="details"> {{q.action}} </div>
+	<div class="details"> {{q.created}} </div>
+	{% endfor %}
+</div>
+
+<button id="print-button" onclick="printreport('result-container')"> Print. </button>
+{% endblock %}

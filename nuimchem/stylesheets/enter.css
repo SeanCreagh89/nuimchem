@@ -1,0 +1,71 @@
+/***** NAVIGATION STYLES *****/
+a.navigation-button
+{
+	color:#ffffff;
+	background-color:#33cc00;
+	font-size:14px;
+	font-weight:bold;
+	float:left;
+	width:33%;
+	height:82px;
+	border:1px solid #e8e8e8;
+	border-radius:10px;
+	text-align:center;
+	text-decoration:none;
+}
+
+div.hidden-class
+{
+	display:none;
+	float:left;
+	width:500px;
+	margin-left:50px;
+	margin-right:50px;
+	margin-bottom:10px;
+}
+
+p.navigation-text
+{
+	width:100%;
+	height:100%;
+	margin-top:34px;
+}
+
+#content-holder
+{
+	margin-top:50px;
+}
+
+#hidden-class-wrapper
+{
+	float:left;
+	width:500px;
+	margin-top:10px;
+	margin-bottom:20px;
+}
+
+#navigation
+{
+	width:100%;
+	height:82px;
+}
+
+#success-holder
+{
+	position:absolute;
+	width:1250px;
+	text-align:center;
+}
+
+#success-margin
+{
+	margin-top:18px;
+}
+
+
+
+/***** LARGER WRAPPER MARGIN *****/
+#more-margin
+{
+	margin-bottom:30px;
+}

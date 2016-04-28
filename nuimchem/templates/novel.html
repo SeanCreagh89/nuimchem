@@ -1,0 +1,333 @@
+{% extends "enter.html" %}
+{% set current_page = "novel" %}
+
+{% block inner_content %}
+<div id="container">
+	<form method="post">
+		<div id="left">
+			<div class="layer">
+				<div class="main-wrapper">
+					<h1 class="title"> Identity Details. </h1>
+				</div>
+
+				<div class="main-wrapper">
+					<label class="subtitle"> Name: </label>
+					<span class="big-error"> {{name_error}} </span>
+					<input class="field" type="text" name="name" value="{{name}}">
+				</div>
+
+				<div class="main-wrapper">
+					<label class="subtitle"> Owner: </label>
+					<span class="big-error"> {{owner_error}} </span>
+					<select class="drop-down" name="owner">
+						<option value="please select owner"> please select owner </option>
+						{% for u in users %}
+						{% if u.admin != "ADMIN" %}
+						<option value="{{u.username}}"> {{u.username}} </option>
+						{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="main-wrapper">
+					<label class="subtitle"> Group: </label>
+					<span class="big-error"> {{group_error}} </span>
+					<select class="drop-down" name="group">
+						{% set group = [
+						('please select group'),
+						('Carmel Breslin'),
+						('Denise Rooney'),
+						('Frances Heaney'),
+						('Jennifer McManus'),
+						('John Lowry'),
+						('John McGinley'),
+						('John Stephens'),
+						('Malachy McCann'),
+						('Natasa Mitic'),
+						('Robert Elns'),
+						('Sean McCaffrey'),
+						('Trinidad Velasco-Torrijos')
+						] -%}
+
+						{% for value in group %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="main-wrapper" id="no-margin">
+					<label class="subtitle-large"> Quantity: </label>
+					<label class="subtitle"> Unit of Measurement: </label>
+
+					<div id="measure-wrapper">
+						<input id="quantity" type="text" name="quantity" value="{{quantity}}">
+						<select id="measure" name="measure">
+							{% set measure = [
+							('please select measurement'),
+							('Ampoule'),
+							('Cubic Centimeter'),
+							('Fluid Ounce'),
+							('Gallon'),
+							('Gram'),
+							('Kilogram'),
+							('Litre'),
+							('Microgram'),
+							('Microlitre'),
+							('Milligram'),
+							('Millilitre'),
+							('Millimetre'),
+							('Mole'),
+							('Nanogram'),
+							('Nanomol'),
+							('Pack'),
+							('Other')
+							] -%}
+
+							{% for value in measure %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<span class="small-error"> {{quantity_error}} </span>
+					<span class="big-error"> {{measure_error}} </span>
+				</div>
+			</div>
+
+			<div class="layer">
+				<div class="main-wrapper">
+					<h1 class="title"> Location Details. </h1>
+				</div>
+
+				<div class="main-wrapper">
+					<label class="subtitle"> Main Location: </label>
+					<span class="big-error"> {{mainloc_error}} </span>
+					<select class="drop-down" id='mainloc' name="mainloc" onchange="dropdownlist(this.id, 'subloc')">
+						{% set location = [
+						('please select primary location'),
+						('Main Stores'),
+						('1st Year Lab 1.39'),
+						('3rd Year Lab'),
+						('Bio-Analytics Lab (1.59)'),
+						('Biophysical Lab (1.53)'),
+						('Biophysical Lab 2'),
+						('Chromatography Lab (1.51)'),
+						('Electrochemistry Lab (1.55)'),
+						('Elisa Lab'),
+						('Francis Lab'),
+						('Low Temperature Lab (1.58)'),
+						('Mass Spec Lab (1.52)'),
+						('Natasha Lab'),
+						('Physical Chemistry Lab 1.42'),
+						('Prep Room 1.41'),
+						('Synthesis Lab (2.52)')
+						] -%}
+
+						{% for value in location %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="main-wrapper" id="no-margin">
+					<label class="subtitle"> Sub Location: </label>
+					<span class="big-error"> {{subloc_error}} </span>
+					<select class="drop-down" id='subloc' name="subloc">
+						<option> please choose from above </option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div id="right">
+			<div class="layer">
+				<div class="main-wrapper">
+					<h1 class="title"> Safety Details. </h1>
+				</div>
+
+				<div class="main-wrapper" id="no-margin">
+					<label class="subtitle"> Classification: </label>
+					<span class="big-error"> {{classification_error}} </span>
+					<select class="drop-down" name="classification1" id="classification11" onchange="hiddenclass(this.id, 'classification2')">
+						{% set classification = [
+						('please select classification'),
+						('Azide'),
+						('Carcinogenic (Category 1A)'),
+						('Carcinogenic (Category 1B)'),
+						('Cyanide'),
+						('Mutagenic (Category 1A)'),
+						('Mutagenic (Category 1B)'),
+						('Nanomaterial'),
+						('Non Hazardous'),
+						('Reproductive Toxin (Category 1A)'),
+						('Reproductive Toxin (Category 1B)'),
+						('Sensitiser')
+						] -%}
+
+						{% for value in classification %}
+						<option value="{{value}}"> {{value}} </option>
+						{% endfor %}
+					</select>
+					<span class="hint"> hint: leave empty for "None" classification. </span>
+				</div>
+
+				<div id="hidden-class-wrapper">
+					<div class="hidden-class" id='classification2'>
+						<select class="drop-down" name="classification2" id="classification21" onchange="hiddenclass(this.id, 'classification3')">
+							{% set classification = [
+							('please select a second classification'),
+							('Azide'),
+							('Carcinogenic (Category 1A)'),
+							('Carcinogenic (Category 1B)'),
+							('Cyanide'),
+							('Mutagenic (Category 1A)'),
+							('Mutagenic (Category 1B)'),
+							('Nanomaterial'),
+							('Non Hazardous'),
+							('Reproductive Toxin (Category 1A)'),
+							('Reproductive Toxin (Category 1B)'),
+							('Sensitiser')
+							] -%}
+
+							{% for value in classification %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="hidden-class" id='classification3'>
+						<select class="drop-down" name="classification3" id="classification31" onchange="hiddenclass(this.id, 'classification4')">
+							{% set classification = [
+							('please select a third classification'),
+							('Azide'),
+							('Carcinogenic (Category 1A)'),
+							('Carcinogenic (Category 1B)'),
+							('Cyanide'),
+							('Mutagenic (Category 1A)'),
+							('Mutagenic (Category 1B)'),
+							('Nanomaterial'),
+							('Non Hazardous'),
+							('Reproductive Toxin (Category 1A)'),
+							('Reproductive Toxin (Category 1B)'),
+							('Sensitiser')
+							] -%}
+
+							{% for value in classification %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="hidden-class" id='classification4'>
+						<select class="drop-down" name="classification4" id="classification41" onchange="hiddenclass(this.id, 'classification5')">
+							{% set classification = [
+							('please select a fourth classification'),
+							('Azide'),
+							('Carcinogenic (Category 1A)'),
+							('Carcinogenic (Category 1B)'),
+							('Cyanide'),
+							('Mutagenic (Category 1A)'),
+							('Mutagenic (Category 1B)'),
+							('Nanomaterial'),
+							('Non Hazardous'),
+							('Reproductive Toxin (Category 1A)'),
+							('Reproductive Toxin (Category 1B)'),
+							('Sensitiser')
+							] -%}
+
+							{% for value in classification %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="hidden-class" id='classification5'>
+						<select class="drop-down" name="classification5" id="classification51" onchange="hiddenclass(this.id, 'classification6')">
+							{% set classification = [
+							('please select a fifth classification'),
+							('Azide'),
+							('Carcinogenic (Category 1A)'),
+							('Carcinogenic (Category 1B)'),
+							('Cyanide'),
+							('Mutagenic (Category 1A)'),
+							('Mutagenic (Category 1B)'),
+							('Nanomaterial'),
+							('Non Hazardous'),
+							('Reproductive Toxin (Category 1A)'),
+							('Reproductive Toxin (Category 1B)'),
+							('Sensitiser')
+							] -%}
+
+							{% for value in classification %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<div class="hidden-class" id='classification6'>
+						<select class="drop-down" name="classification6" id="classification61">
+							{% set classification = [
+							('please select a sixth classification'),
+							('Azide'),
+							('Carcinogenic (Category 1A)'),
+							('Carcinogenic (Category 1B)'),
+							('Cyanide'),
+							('Mutagenic (Category 1A)'),
+							('Mutagenic (Category 1B)'),
+							('Nanomaterial'),
+							('Non Hazardous'),
+							('Reproductive Toxin (Category 1A)'),
+							('Reproductive Toxin (Category 1B)'),
+							('Sensitiser')
+							] -%}
+
+							{% for value in classification %}
+							<option value="{{value}}"> {{value}} </option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+
+				<div class="main-wrapper">
+					<div class="inner-wrapper">
+						<label class="subtitle"> Symbol: </label>
+						<span class="big-error"> {{symbol_error}} </span>
+					</div>
+
+					{% set image = [
+					('image1', '/images/img1.png'),
+					('image2', '/images/img2.png'),
+					('image3', '/images/img3.png'),
+					('image4', '/images/img4.png'),
+					('image5', '/images/img5.png'),
+					('image6', '/images/img6.png'),
+					('image7', '/images/img7.png'),
+					('image8', '/images/img8.png'),
+					('image9', '/images/img9.png')
+					] -%}
+
+					<div class="inner-wrapper">
+						{% for id, value in image %}
+						<div id="symbol-holder">
+							<input id="check-box" type="checkbox" name="{{id}}" value="{{value}}">
+							<img id="symbol" src="{{value}}" alt="{{id}}">
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="main-wrapper" id="no-margin">
+					<label class="subtitle"> Description: </label>
+					<span class="big-error"> {{desc_error}} </span>
+					<textarea id="description" onKeyUp="counter(this, 'countdown', 500)" type="text" name="description" value="{{description}}"></textarea>
+					<p id="countdown-text"> Characters Left:
+						<input id="countdown" readonly type="text" name="countdown" size="3" maxlength="3" value="500">
+					</p>
+				</div>
+			</div>
+
+			<button id="long-button" type="submit" name="button" value="1"> Submit. </button>
+		</div>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "navigation.html" %}
+{% set active_page = "enter" %}
+
+{% block title %}
+Enter.
+{% endblock %}
+
+{% block styles %}
+<link type="text/css" rel="stylesheet" href="/stylesheets/enter.css" />
+{% endblock %}
+
+{% block content %}
+<div id="navigation">
+	{% set navigation = [
+	('/unit2/enter/cas', 'cas', 'CAS Number'),
+	('/unit2/enter/novel', 'novel', 'Novel Compound'),
+	('/unit2/enter/waste', 'waste', 'Waste')
+	] -%}
+
+	{% set current_page = current_page|default('cas') -%}
+
+	{% for href, id, caption in navigation %}
+	<a href="{{href}}" class="navigation-button" {% if id == current_page %} id="active" {% endif %}>
+		<p class="navigation-text"> {{caption}} </p>
+	</a>
+	{% endfor %}
+</div>
+
+<div id="success-holder">
+	<p class="success" id="success-margin"> {{success}} </p>
+</div>
+
+<div id="content-holder">
+	{% block inner_content %}{% endblock %}
+</div>
+{% endblock %}
