@@ -8,6 +8,6 @@ The application consists of two web pages; a login screen which allowed users' t
 
 The Google App Engine and Python are required to run this web application.
 Google App Engine: https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python
-Python 2.7: https://www.python.org/downloads/
+Python: https://www.python.org/downloads/
 
 Any tips and suggestions are much appreciated. Thank you.
